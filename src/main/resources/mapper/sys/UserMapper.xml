@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.user.UserDao">
+    <!--根据用户名判断用户名是否存在-->
+    <select id="selByuName" parameterType="java.lang.String" resultType="com.pojo.user.User">
+        select
+        user_id as id, username as uName,password as uPwd,salt as salt,email as email,mobile as mobile,status as status,create_time as cTime
+        from sys_user
+        where username=#{uName}
+    </select>
+    <!--注册-->
+    <insert id="addSysUser" parameterType="map">
+        insert into sys_user(username,password,salt,email,mobile)values(#{uName},#{uPwd},#{salt},#{email},#{mobile});
+    </insert>
+    <!--获取用户角色-->
+    <select id="roleList" parameterType="java.lang.String" resultType="com.pojo.role.Role">
+        select
+        sys_role.role_id as id,sys_role.role_name as rName
+        from sys_user_role,sys_user,sys_role
+        where sys_user_role.user_id=sys_user.user_id and sys_user_role.role_id=sys_role.role_id and sys_user.username=#{uName}
+    </select>
+
+</mapper>

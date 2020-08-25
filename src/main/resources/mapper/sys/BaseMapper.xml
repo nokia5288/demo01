@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.base.BaseDao">
+    <select id="mList" parameterType="java.lang.String" resultType="map">
+        select
+        sys_menu.id as id,sys_menu.`name` as name
+        from sys_user_role,sys_user,sys_role,sys_role_menu,sys_menu
+        where sys_user_role.user_id=sys_user.user_id
+        and sys_user_role.role_id=sys_role.role_id
+        and sys_role_menu.mId=sys_menu.id
+        and sys_role_menu.rId=sys_role.role_id
+        and sys_user.username=#{username}
+    </select>
+
+</mapper>
